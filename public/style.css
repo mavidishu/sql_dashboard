@@ -1,0 +1,36 @@
+.logo{
+    font-weight: 700;
+}
+
+.underEffect:hover{
+    text-decoration: underline;
+    text-underline-offset: 5px;
+}
+
+#deleteIcon{
+    height:23px;
+    width: 23px;
+    cursor: pointer;
+}
+
+.addBtn{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#dbNameInput{
+    height: 100%;
+    width: 100%;
+    border: none;
+}
+
+#dbNameInput:focus{
+    outline: none;
+    border: none;
+}
+
+.btnDelete{
+    border: none;
+    background:transparent;
+}

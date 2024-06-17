@@ -4,6 +4,7 @@ const mysql2 = require("mysql2");
 const path = require("path");
 const methodOverride = require('method-override')
 const { faker } = require('@faker-js/faker');
+const { connect } = require("http2");
 
 // Accessing env variables:
 dotenv.config();
@@ -156,3 +157,40 @@ app.delete("/user/:id",(req,res)=>{
         res.status(500).send("Internal Server Error");
     })
 });
+
+// View Databases
+app.get("/user/db",(req,res)=>{
+    connection.query("SHOW DATABASES",(err,result)=>{
+        if(err){
+            console.log(err);
+            res.status(500).send("Internal Server Error");
+        }else{
+            res.render("databaseEntreis.ejs",{result});
+        }
+    })
+})
+
+// Delete Database
+app.delete("/user/db/:dbname",(req,res)=>{
+    connection.query(`DROP DATABASE ${req.params.dbname}`,(err,result)=>{
+        if(err){
+            console.log(err);
+            res.status(500).send("Internal Server Error");
+        }else{
+            res.redirect("/user/db");
+        }
+    })
+})
+
+// Create Database
+app.post("/user/db/add",(req,res)=>{
+    console.log(req.body);
+    connection.query(`create database ${req.body.database}`,(err,result)=>{
+        if(err){
+            console.log(err);
+            res.status(500).send("Internal Server Error");
+        }else{
+            res.redirect("/user/db");
+        }
+    })
+})
